@@ -9,8 +9,8 @@ import Layout from './Layouts/Layout'
 
 export default function App() {
   return (<>
-    <RouterProvider router={router} />
     <Layout />
+    <RouterProvider router={router} />
   </>);
 }
 
