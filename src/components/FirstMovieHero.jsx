@@ -26,16 +26,18 @@ export default function FirstMovieHero({ firstMovie, firstMovieImage, firstMovie
             <div className="absolute inset-x-0 bottom-0 h-1/5 bg-gradient-to-t from-black to-transparent z-20"></div>
             {/* Content */}
 
-            <div className="relative z-20 max-w-2xl">
-                <h2 className="text-white text-4xl lg:text-7xl font-extrabold drop-shadow-lg mb-4 text-shadow-[2px_2px_40px_rgba(0,0,0,0.5)] text-shadow-white">
-                    {firstMovie?.title}
-                </h2>
-                <h3 className="text-white text-md leading-relaxed drop-shadow-md">
-                    {firstMovie?.overview}
-                </h3>
-                <Button> <Play /> Guarda ora </Button>
-            </div>
-
-        </div>
-    )
+      <div className="relative z-20 max-w-2xl">
+        <h2 className="text-white text-4xl lg:text-7xl font-extrabold drop-shadow-lg mb-4 text-shadow-[2px_2px_40px_rgba(0,0,0,0.5)] text-shadow-white">
+          {firstMovie?.title}
+        </h2>
+        <h3 className="text-white text-md leading-relaxed drop-shadow-md">
+          {firstMovie?.overview}
+        </h3>
+        <Button>
+          {" "}
+          <Play /> Guarda ora{" "}
+        </Button>
+      </div>
+    </div>
+  );
 }

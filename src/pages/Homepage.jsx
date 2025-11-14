@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import FirstMovieHero from "../components/FirstMovieHero";
 import Card from "../components/Card";
+import Layout from "../Layouts/Layout";
 
 export default function Homepage() {
     const [movies, setMovies] = useState([]);
@@ -45,7 +46,6 @@ export default function Homepage() {
             setTrailer(trailerRaw.key);
 
             const firstMovideDetails = await fetch(`${API_URL}/movie/${movieData.results[0].id}`, options);
-            console.log(firstMovideDetails);
             setFirstMovieImage(firstMovieImageRaw.file_path);
 
 
@@ -60,13 +60,9 @@ export default function Homepage() {
         fetchData();
     }, []);
 
-    console.log(trailer);
-    console.log(firstMovie);
-    console.log(movies);
-
     return (
 
-        <>
+        <Layout>
             <div className="h-[70vh] w-full bg-black">
                 <FirstMovieHero firstMovie={firstMovie} firstMovieImage={firstMovieImage} firstMovieTrailer={trailer} />
 
@@ -93,6 +89,6 @@ export default function Homepage() {
                     </div>
                 </section>
             </div>
-        </>
+        </Layout>
     );
 }
