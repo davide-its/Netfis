@@ -5,3 +5,11 @@
 * {
     font-family: 'Inter Tight', sans-serif;
 }
+
+body {
+    background-color: black;
+}
+
+section {
+    padding: 10rem 0;
+}

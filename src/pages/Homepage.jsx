@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from "react";
 import FirstMovieHero from "../components/FirstMovieHero";
+import Card from "../components/Card";
 
 export default function Homepage() {
     const [movies, setMovies] = useState([]);
@@ -63,35 +64,25 @@ export default function Homepage() {
             </div>
             <div className="h-[10vh] w-full  bg-linear-to-b from-black to-transparent z-10"></div>
 
-            <div className="container mx-auto">
+            <div className="container px-3 mx-auto">
 
-                <h1 className="text-3xl font-bold mb-4">Migliori Film</h1>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                    {movies.map((movie) => (
-                        <div key={movie.id} className="bg-gray-900 text-white rounded-xl p-2 shadow-lg">
-                            <img
-                                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                                alt={movie.title}
-                                className="rounded-lg"
-                            />
-                            <h2 className="mt-2 font-semibold text-center">{movie.title}</h2>
-                        </div>
-                    ))}
-                </div>
+                <section>
+                    <h3 className="text-3xl font-bold mb-4 text-white">Migliori film <span className="text-red-500 font-bold"> trending</span></h3>
+                    <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+                        {movies.map((movie) => (
+                            <Card key={movie.id} name={movie.name} image={movie.poster_path} />
+                        ))}
+                    </div>
+                </section>
 
-                <h1 className="text-3xl font-bold mb-4">📺 Migliori Serie TV</h1>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {series.map((tv) => (
-                        <div key={tv.id} className="bg-gray-900 text-white rounded-xl p-2 shadow-lg">
-                            <img
-                                src={`https://image.tmdb.org/t/p/w500${tv.poster_path}`}
-                                alt={tv.name}
-                                className="rounded-lg"
-                            />
-                            <h2 className="mt-2 font-semibold text-center">{tv.name}</h2>
-                        </div>
-                    ))}
-                </div>
+                <section>
+                    <h3 className="text-3xl font-bold mb-4 text-white">Migliori Serie TV <span className="text-red-500 font-bold"> trending</span></h3>
+                    <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+                        {series.map((tv) => (
+                            <Card key={tv.id} name={tv.name} image={tv.poster_path} />
+                        ))}
+                    </div>
+                </section>
             </div>
         </>
     );
