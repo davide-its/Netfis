@@ -41,7 +41,7 @@ export default function Homepage() {
             const firstMovieVideos = await fetch(`${API_URL}/movie/${movieData.results[0].id}/videos`, options);
             const videosData = await firstMovieVideos.json();
             console.log(videosData);
-            const trailerRaw = videosData.results.find(video => video.type === "Featurette" && video.size === 1080 && video.site === "YouTube");
+            const trailerRaw = videosData.results.find(video => video.type === "Trailer" && video.size === 1080 && video.site === "YouTube");
             console.log("https://www.youtube.com/watch?v=" + trailerRaw.key);
             setTrailer(trailerRaw.key);
 
@@ -60,17 +60,18 @@ export default function Homepage() {
         fetchData();
     }, []);
 
+    console.log(trailer);
+    console.log(firstMovie);
+    console.log(movies);
+
     return (
 
         <Layout>
-            <div className="h-[70vh] w-full bg-black">
+            <div className="h-fit w-full">
                 <FirstMovieHero firstMovie={firstMovie} firstMovieImage={firstMovieImage} firstMovieTrailer={trailer} />
-
             </div>
-            <div className="h-[10vh] w-full  bg-linear-to-b from-black to-transparent z-10"></div>
 
             <div className="container px-3 mx-auto">
-
                 <section>
                     <h3 className="text-3xl font-bold mb-4 text-white">Migliori film <span className="text-red-500 font-bold"> trending</span></h3>
                     <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
