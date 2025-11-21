@@ -1,15 +1,25 @@
 import { useState } from "react";
 import Modal from "./Modal";
+import { getMovieDetails, getSerieDetails } from "../services/api";
 
-export default function Card({ id, image, name, opera }) {
+export default function Card({ id, image, name, type }) {
     const [isOpen, setIsOpen] = useState(false);
+    const [opera, setOpera] = useState([]);
+
+    async function getDetails() {
+        // support different prop names: media_type | type | isSeries
+
+        const details = type == "serie" ? await getSerieDetails(id) : await getMovieDetails(id);
+        setOpera(details);
+        return details;
+    }
 
     return (
         <>
             <div
                 id={id}
                 className="w-full flex flex-col text-red-500 rounded-xl shadow-lg h-fit py-4 hover:scale-105 transition-all cursor-pointer"
-                onClick={() => setIsOpen(true)}
+                onClick={() => { setIsOpen(true), getDetails() }}
             >
                 <img
                     src={`https://image.tmdb.org/t/p/original/${image}`}

@@ -4,6 +4,7 @@ import {
   getPopularSeries,
   getMovieImages,
   getMovieVideos,
+  getMovieDetails,
 } from "../services/api";
 
 const MediaContext = createContext();
@@ -13,6 +14,7 @@ export function MediaProvider({ children }) {
   const [movies, setMovies] = useState([]);
   const [series, setSeries] = useState([]);
   const [firstMovie, setFirstMovie] = useState(null);
+  const [firstMovieDetails, setFirstMovieDetails] = useState(null);
   const [firstMovieImage, setFirstMovieImage] = useState(null);
   const [trailer, setTrailer] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -26,7 +28,9 @@ export function MediaProvider({ children }) {
       setSeries(seriesData);
 
       // Film principale
-      const first = moviesData[0];
+
+      const randomIndex = Math.floor(Math.random() * moviesData.length);
+      const first = moviesData[4];
       setFirstMovie(first);
 
       const images = await getMovieImages(first.id);
@@ -38,6 +42,15 @@ export function MediaProvider({ children }) {
         v => v.type === "Trailer" && v.site === "YouTube"
       );
       setTrailer(trailer?.key);
+
+      const firstDetails = await getMovieDetails(first.id);
+      setFirstMovieDetails(firstDetails);
+      console.log(firstDetails);
+      
+      
+
+
+
 
     } catch (e) {
       console.error("Errore nel fetch:", e);
@@ -59,6 +72,7 @@ export function MediaProvider({ children }) {
         firstMovieImage,
         trailer,
         loading,
+        firstMovieDetails,
       }}
     >
       {children}

@@ -3,7 +3,7 @@ import Button from "./Button";
 import { useState } from "react";
 import Modal from "./Modal";
 
-export default function FirstMovieHero({ firstMovie, firstMovieImage, firstMovieTrailer }) {
+export default function FirstMovieHero({ firstMovie, firstMovieImage, firstMovieTrailer, firstMovieDetails }) {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -11,7 +11,7 @@ export default function FirstMovieHero({ firstMovie, firstMovieImage, firstMovie
         <>
             {/* MODALE (fuori dal contenitore principale) */}
             {isOpen && (
-                <Modal opera={firstMovie} operaImage={firstMovieImage} setIsOpen={setIsOpen} />
+                <Modal opera={firstMovieDetails} operaImage={firstMovieImage} setIsOpen={setIsOpen} />
             )}
 
             {firstMovie && firstMovieImage && firstMovieTrailer && (

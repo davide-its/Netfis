@@ -34,7 +34,14 @@ export async function getMovieVideos(movieId) {
 }
 
 export async function getMovieDetails(movieId) {
-  const res = await fetch(`${API_URL}/movie/${movieId}`, options);
+  const res = await fetch(`${API_URL}/movie/${movieId}?language=it-IT`, options);
   const data = await res.json();
   return data;
 }
+
+export async function getSerieDetails(serieId) {
+  const res = await fetch(`${API_URL}/tv/${serieId}?language=it-IT`, options);
+  const data = await res.json();
+  return data;
+}
+    

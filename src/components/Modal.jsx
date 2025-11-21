@@ -1,12 +1,11 @@
-import { Heart } from "lucide-react";
+import { Heart, Star } from "lucide-react";
 import Button from "./Button";
 
 function Modal({ opera, operaImage, setIsOpen }) {
 
     console.log(opera);
-
     return (
-        <div className="fixed inset-0 top-15 z-30 flex justify-center items-center">
+        <div className="fixed inset-0 z-30 flex justify-center items-center">
 
             {/* Overlay */}
             <div
@@ -24,7 +23,7 @@ function Modal({ opera, operaImage, setIsOpen }) {
                 <div className="shrink-0 w-full md:w-1/3 h-64 md:h-auto rounded-2xl overflow-hidden mb-4 md:mb-0">
                     <img
                         src={`https://image.tmdb.org/t/p/original${operaImage}`}
-                        alt={opera.title}
+                        title={opera.title || opera.original_name}
                         className="w-full h-full object-cover object-top"
                     />
                 </div>
@@ -35,7 +34,7 @@ function Modal({ opera, operaImage, setIsOpen }) {
 
                     {/* Titolo + Tagline */}
                     <div className="mb-4">
-                        <h2 className="text-3xl font-bold mb-1">{opera.title}</h2>
+                        <h2 className="text-3xl font-bold mb-1">{opera.title || opera.original_name}</h2>
 
                         {opera.tagline && (
                             <p className="text-red-400 italic mb-2">“{opera.tagline}”</p>
@@ -43,15 +42,15 @@ function Modal({ opera, operaImage, setIsOpen }) {
 
                         {/* Info principali */}
                         <p className="text-gray-400 text-sm mb-3 flex flex-wrap gap-2">
-                            <span>{opera.release_date?.slice(0, 4)}</span>
+                            <span>{opera.release_date?.slice(0, 4) || opera.last_air_date?.slice(0, 4)}</span>
                             <span>•</span>
                             <span>
                                 {opera.genres?.map(g => g.name).join(", ") || "N/A"}
                             </span>
                             <span>•</span>
-                            <span>{opera.runtime || "N/A"} min</span>
+                            <span>{opera.runtime ? opera.runtime + "min" : opera.number_of_seasons ? opera.number_of_seasons + " stagioni" : "N/A"} </span>
                             <span>•</span>
-                            <span>⭐ {opera.vote_average?.toFixed(1)}</span>
+                            <span className="flex items-center"><Star className="text-amber-300 h-4" /> {opera.vote_average?.toFixed(1)}</span>
                         </p>
 
                         {/* Overview */}
