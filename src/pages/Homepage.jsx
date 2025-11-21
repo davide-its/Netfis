@@ -7,16 +7,15 @@ import Layout from "../Layouts/Layout";
 export default function Homepage() {
     const [movies, setMovies] = useState([]);
     const [series, setSeries] = useState([]);
-    const [firstMovie, setFirstMovie] = useState({});
-    const [firstMovieImage, setFirstMovieImage] = useState();
+    const [firstMovie, setFirstMovie] = useState(null);
+    const [firstMovieImage, setFirstMovieImage] = useState(null);
     const [trailer, setTrailer] = useState("");
 
-    const API_URL = import.meta.env.VITE_API_BASE_URL; // preso da .env
-    const TOKEN = import.meta.env.VITE_APP_BEARER_TOKEN; // preso da .env
-    const randomIndex = Math.floor(Math.random() * 16);
+    const API_URL = import.meta.env.VITE_API_BASE_URL;
+    const TOKEN = import.meta.env.VITE_APP_BEARER_TOKEN;
+
     const fetchData = async () => {
         try {
-
             const options = {
                 method: "GET",
                 headers: {
@@ -25,30 +24,47 @@ export default function Homepage() {
                 },
             };
 
+            // --- 1) POPOLARITÀ FILM ---
             const movieRes = await fetch(`${API_URL}/movie/popular?language=it-IT`, options);
             const movieData = await movieRes.json();
-            setMovies(movieData.results || []);
 
+            const movieList = movieData.results || [];
+            setMovies(movieList);
+
+            if (!movieList.length) return;
+
+            const randomIndex = Math.floor(Math.random() * movieList.length);
+            const selectedMovie = movieList[randomIndex];
+
+            // --- 2) DETTAGLI FILM COMPLETI ---
+            const detailRes = await fetch(`${API_URL}/movie/${selectedMovie.id}?language=it-IT`, options);
+            const detailData = await detailRes.json();
+
+            // Salvo i dettagli completi nel tuo state
+            setFirstMovie(detailData);
+            console.log(detailData);
+
+            // --- 3) IMMAGINI ---
+            const imgRes = await fetch(`${API_URL}/movie/${selectedMovie.id}/images`, options);
+            const imgData = await imgRes.json();
+
+            const backdrop = imgData.backdrops?.find(i => i.height >= 1500);
+            setFirstMovieImage(backdrop?.file_path || null);
+
+            // --- 4) VIDEOS / TRAILER ---
+            const vidRes = await fetch(`${API_URL}/movie/${selectedMovie.id}/videos`, options);
+            const vidData = await vidRes.json();
+
+            const trailerRaw =
+                vidData.results.find(v => v.type === "Trailer" && v.site === "YouTube") ||
+                vidData.results.find(v => v.site === "YouTube");
+
+            setTrailer(trailerRaw?.key || "");
+
+            // --- 5) SERIE POPOLARI ---
             const seriesRes = await fetch(`${API_URL}/tv/popular?language=it-IT`, options);
             const seriesData = await seriesRes.json();
             setSeries(seriesData.results || []);
-            setFirstMovie(movieData.results[randomIndex]);
-
-            const firstMovieRes = await fetch(`${API_URL}/movie/${movieData.results[randomIndex].id}/images`, options);
-            const firstMovieData = await firstMovieRes.json();
-            const firstMovieImageRaw = firstMovieData.backdrops.find(image => image.height >= 1500);
-
-            const firstMovieVideos = await fetch(`${API_URL}/movie/${movieData.results[randomIndex].id}/videos`, options);
-            const videosData = await firstMovieVideos.json();
-
-            const trailerRaw = videosData.results.find(video => video.type === "Trailer" && video.size === 1080 && video.site === "YouTube");
-
-            setTrailer(trailerRaw.key);
-
-            const firstMovideDetails = await fetch(`${API_URL}/movie/${movieData.results[randomIndex].id}`, options);
-            setFirstMovieImage(firstMovieImageRaw.file_path);
-
-
 
         } catch (error) {
             console.error("Errore nel fetch dei dati TMDB:", error);
@@ -56,14 +72,16 @@ export default function Homepage() {
     };
 
     useEffect(() => {
+
         fetchData();
+
     }, []);
 
 
     return (
 
         <Layout>
-            <div className="h-screen w-full">
+            <div className="h-full w-full">
                 <FirstMovieHero firstMovie={firstMovie} firstMovieImage={firstMovieImage} firstMovieTrailer={trailer} />
             </div>
 
@@ -72,7 +90,7 @@ export default function Homepage() {
                     <h3 className="text-3xl font-bold mb-4 text-white">Migliori film <span className="text-red-500 font-bold"> trending</span></h3>
                     <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
                         {movies.map((movie) => (
-                            <Card key={movie.id} name={movie.name} image={movie.poster_path} />
+                            <Card key={movie.id} id={movie.id} name={movie.name} image={movie.poster_path} opera={movie} />
                         ))}
                     </div>
                 </section>
@@ -81,7 +99,7 @@ export default function Homepage() {
                     <h3 className="text-3xl font-bold mb-4 text-white">Migliori Serie TV <span className="text-red-500 font-bold"> trending</span></h3>
                     <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
                         {series.map((tv) => (
-                            <Card key={tv.id} name={tv.name} image={tv.poster_path} />
+                            <Card key={tv.id} id={tv.id} name={tv.name} image={tv.poster_path} opera={tv} />
                         ))}
                     </div>
                 </section>
