@@ -13,7 +13,7 @@ export default function Homepage() {
 
     const API_URL = import.meta.env.VITE_API_BASE_URL; // preso da .env
     const TOKEN = import.meta.env.VITE_APP_BEARER_TOKEN; // preso da .env
-
+    const randomIndex = Math.floor(Math.random() * 16);
     const fetchData = async () => {
         try {
 
@@ -32,20 +32,20 @@ export default function Homepage() {
             const seriesRes = await fetch(`${API_URL}/tv/popular?language=it-IT`, options);
             const seriesData = await seriesRes.json();
             setSeries(seriesData.results || []);
-            setFirstMovie(movieData.results[0]);
+            setFirstMovie(movieData.results[randomIndex]);
 
-            const firstMovieRes = await fetch(`${API_URL}/movie/${movieData.results[0].id}/images`, options);
+            const firstMovieRes = await fetch(`${API_URL}/movie/${movieData.results[randomIndex].id}/images`, options);
             const firstMovieData = await firstMovieRes.json();
             const firstMovieImageRaw = firstMovieData.backdrops.find(image => image.height >= 1500);
 
-            const firstMovieVideos = await fetch(`${API_URL}/movie/${movieData.results[0].id}/videos`, options);
+            const firstMovieVideos = await fetch(`${API_URL}/movie/${movieData.results[randomIndex].id}/videos`, options);
             const videosData = await firstMovieVideos.json();
-            console.log(videosData);
+
             const trailerRaw = videosData.results.find(video => video.type === "Trailer" && video.size === 1080 && video.site === "YouTube");
-            console.log("https://www.youtube.com/watch?v=" + trailerRaw.key);
+
             setTrailer(trailerRaw.key);
 
-            const firstMovideDetails = await fetch(`${API_URL}/movie/${movieData.results[0].id}`, options);
+            const firstMovideDetails = await fetch(`${API_URL}/movie/${movieData.results[randomIndex].id}`, options);
             setFirstMovieImage(firstMovieImageRaw.file_path);
 
 
@@ -56,18 +56,14 @@ export default function Homepage() {
     };
 
     useEffect(() => {
-
         fetchData();
     }, []);
 
-    console.log(trailer);
-    console.log(firstMovie);
-    console.log(movies);
 
     return (
 
         <Layout>
-            <div className="h-fit w-full">
+            <div className="h-screen w-full">
                 <FirstMovieHero firstMovie={firstMovie} firstMovieImage={firstMovieImage} firstMovieTrailer={trailer} />
             </div>
 
