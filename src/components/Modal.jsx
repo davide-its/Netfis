@@ -1,7 +1,9 @@
+import { Heart } from "lucide-react";
 import Button from "./Button";
 
-function Modal({opera, operaImage, setIsOpen}) {
+function Modal({ opera, operaImage, setIsOpen }) {
 
+    console.log(opera);
 
     return (
         <div className="fixed inset-0 top-15 z-30 flex justify-center items-center">
@@ -28,7 +30,8 @@ function Modal({opera, operaImage, setIsOpen}) {
                 </div>
 
                 {/* Contenuti */}
-                <div className="flex flex-col flex-1 md:ml-6">
+
+                <div className="flex flex-col md:ml-6 w-full">
 
                     {/* Titolo + Tagline */}
                     <div className="mb-4">
@@ -43,44 +46,22 @@ function Modal({opera, operaImage, setIsOpen}) {
                             <span>{opera.release_date?.slice(0, 4)}</span>
                             <span>•</span>
                             <span>
-                                {opera.genres?.map(g => g.name).join(", ")}
+                                {opera.genres?.map(g => g.name).join(", ") || "N/A"}
                             </span>
                             <span>•</span>
-                            <span>{opera.runtime} min</span>
+                            <span>{opera.runtime || "N/A"} min</span>
                             <span>•</span>
                             <span>⭐ {opera.vote_average?.toFixed(1)}</span>
                         </p>
 
                         {/* Overview */}
                         <p className="text-gray-300 leading-relaxed">
-                            {opera.overview}
+                            {opera.overview || "Ops! Purtroppo non c'è ancora una descrizione disponibile..."}
                         </p>
                     </div>
 
                     {/* Info aggiuntive */}
                     <div className="flex flex-wrap gap-3 mt-2">
-
-                        {/* Regista */}
-                        {opera.crew && (
-                            <span className="bg-red-900 text-white px-3 py-1 rounded-full text-sm">
-                                Regista: {
-                                    opera.crew.find(c => c.job === "Director")?.name
-                                    || "N/D"
-                                }
-                            </span>
-                        )}
-
-                        {/* Cast */}
-                        {opera.cast && (
-                            <span className="bg-red-900 text-white px-3 py-1 rounded-full text-sm">
-                                Cast: {
-                                    opera.cast
-                                        .slice(0, 3)
-                                        .map(a => a.name)
-                                        .join(", ")
-                                }
-                            </span>
-                        )}
 
                         {/* Lingua originale */}
                         <span className="bg-red-900 text-white px-3 py-1 rounded-full text-sm">
@@ -88,13 +69,20 @@ function Modal({opera, operaImage, setIsOpen}) {
                         </span>
 
 
+                        <Button type="x" onClick={() => setIsOpen(false)} />
+
                     </div>
 
-                    <div className="mt-6">
-                        <Button type="x" onClick={() => setIsOpen(false)} />
+                    <div className="mt-auto ms-auto">
+                        <Button type={""}><Heart /> Aggiungi ai preferiti</Button>
                     </div>
                 </div>
+
+
+
+
             </div>
+
         </div>
     )
 }
