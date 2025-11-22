@@ -52,9 +52,10 @@ export async function getMovieGenres() {
 }
 
 
-export async function getSerieGenrs(serieId) {
-  const res = await fetch(`${API_URL}/tv/${serieId}?language=it-IT`, options);
+export async function getSeriesGenres() {
+  const res = await fetch(`${API_URL}/genre/tv/list?language=it-IT`, options);
   const data = await res.json();
-  return data;
+  return Object.fromEntries(data.genres.map(g => [g.id, g.name]));
 }
+
     
