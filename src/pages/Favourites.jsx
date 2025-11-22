@@ -10,17 +10,15 @@ export default function Favourites() {
     return (
       <Layout>
         <section className="text-white text-center py-20">
-          Nessun film o serie tra i preferiti. Vai nella pagina dei
+          <span>Nessun film o serie tra i preferiti. Vai nella pagina dei</span>
           <Link to={"/movies"} className="text-red-600 font-bold">
-            {" "}
-            Film{" "}
+            <span>Film</span>
           </Link>
-          o delle
+          <span> o delle </span>
           <Link to={"/series"} className="text-red-600 font-bold">
-            {" "}
-            Serie{" "}
+            <span>Serie</span>
           </Link>
-          e aggiungi i tuoi preferiti!
+          <span> e aggiungi i tuoi preferiti!</span>
         </section>
       </Layout>
     );
@@ -28,7 +26,7 @@ export default function Favourites() {
   return (
     <Layout>
       <section className="container mx-auto py-12">
-        <h2 className="text-4xl font-bold text-white mb-6">I tuoi preferiti</h2>
+        <h2 className="text-5xl font-extrabold py-4">I tuoi preferiti</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {favourites.map((item) => {
             return (
@@ -41,6 +39,17 @@ export default function Favourites() {
               />
             );
           })}
+        </div>
+        <div className="text-center p-6 pt-12">
+          <span>Scegli altri film/serie preferiti/e. Vai nella pagina dei</span>
+          <Link to={"/movies"} className="text-red-600 font-bold">
+            <span> Film </span>
+          </Link>
+          <span> o delle </span>
+          <Link to={"/series"} className="text-red-600 font-bold">
+            <span>Serie</span>
+          </Link>
+          <span> e aggiungi i tuoi preferiti!</span>
         </div>
       </section>
     </Layout>

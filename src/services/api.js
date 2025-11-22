@@ -34,7 +34,10 @@ export async function getMovieVideos(movieId) {
 }
 
 export async function getMovieDetails(movieId) {
-  const res = await fetch(`${API_URL}/movie/${movieId}?language=it-IT`, options);
+  const res = await fetch(
+    `${API_URL}/movie/${movieId}?language=it-IT`,
+    options
+  );
   const data = await res.json();
   return data;
 }
@@ -46,16 +49,26 @@ export async function getSerieDetails(serieId) {
 }
 
 export async function getMovieGenres() {
-  const res = await fetch(`${API_URL}/genre/movie/list?language=it-IT`, options);
+  const res = await fetch(
+    `${API_URL}/genre/movie/list?language=it-IT`,
+    options
+  );
   const data = await res.json();
-  return Object.fromEntries(data.genres.map(g => [g.id, g.name]));
+  return Object.fromEntries(data.genres.map((g) => [g.id, g.name]));
 }
-
 
 export async function getSeriesGenres() {
   const res = await fetch(`${API_URL}/genre/tv/list?language=it-IT`, options);
   const data = await res.json();
-  return Object.fromEntries(data.genres.map(g => [g.id, g.name]));
+  return Object.fromEntries(data.genres.map((g) => [g.id, g.name]));
 }
 
-    
+export async function searchMulti(query) {
+  const res = await fetch(
+    `${API_URL}/search/multi?query=${encodeURIComponent(query)}&language=it-IT`,
+    options
+  );
+
+  const data = await res.json();
+  return data.results || [];
+}

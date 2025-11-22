@@ -25,17 +25,29 @@ export default function Navbar() {
         <div className="hidden w-full md:flex">
           <ul className="list-none flex flex-row gap-8 items-center">
             <li>
-              <Link to={"/movies"} className="hover:text-white transition" onClick={() => navigate()}>
+              <Link
+                to={"/movies"}
+                className="hover:text-white transition"
+                onClick={() => navigate()}
+              >
                 Film
               </Link>
             </li>
             <li>
-              <Link to={"/series"} className="hover:text-white transition" onClick={() => navigate()}>
+              <Link
+                to={"/series"}
+                className="hover:text-white transition"
+                onClick={() => navigate()}
+              >
                 Serie Tv
               </Link>
             </li>
             <li>
-              <Link to={"/favourites"} className="hover:text-white transition" onClick={() => navigate()}>
+              <Link
+                to={"/favourites"}
+                className="hover:text-white transition"
+                onClick={() => navigate()}
+              >
                 Preferiti
               </Link>
             </li>
@@ -55,12 +67,9 @@ export default function Navbar() {
 
         {/* Right actions (desktop) */}
         <div className="hidden w-full md:flex ms-auto items-center justify-end gap-6 ">
-          <a
-            className="flex items-center gap-2 hover:text-white transition"
-            href="#"
-          >
+          <Link to="/search" onClick={() => navigate()} className="flex items-center gap-2 border-2 py-1 px-4 rounded-full">
             <Search size={16} /> Cerca
-          </a>
+          </Link>
           <a
             className="flex items-center gap-2 hover:text-white transition"
             href="#"
@@ -98,7 +107,7 @@ export default function Navbar() {
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
         }`}
-        aria-hidden={!menuOpen}
+        inert={!menuOpen ? true : undefined}
       >
         {/* Slide-in panel */}
         <aside

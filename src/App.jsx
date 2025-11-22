@@ -1,7 +1,7 @@
 import {Route, Routes } from "react-router";
 import Homepage from "./pages/Homepage";
 import Favourites from "./pages/Favourites";
-import Search from "./pages/Search";
+import Search from "./pages/SearchModal";
 import Errorpage from "./pages/ErrorPage";
 import Movies from "./pages/Movies";
 import Series from "./pages/Series";
