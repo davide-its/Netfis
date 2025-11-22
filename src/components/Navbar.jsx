@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Search, User, Menu } from "lucide-react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,9 +13,10 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
-  const handleLinkClick = () => {
+  function navigate() {
+    window.scrollTo(0, 0);
     setMenuOpen(false);
-  };
+  }
 
   return (
     <nav className=" h-14 fixed top-0 w-full bg-black/70 backdrop-blur-xs text-white z-100">
@@ -24,17 +25,17 @@ export default function Navbar() {
         <div className="hidden w-full md:flex">
           <ul className="list-none flex flex-row gap-8 items-center">
             <li>
-              <Link to={"/movies"} className="hover:text-white transition">
+              <Link to={"/movies"} className="hover:text-white transition" onClick={() => navigate()}>
                 Film
               </Link>
             </li>
             <li>
-              <Link to={"/series"} className="hover:text-white transition">
+              <Link to={"/series"} className="hover:text-white transition" onClick={() => navigate()}>
                 Serie Tv
               </Link>
             </li>
             <li>
-              <Link to={"/favourites"} className="hover:text-white transition">
+              <Link to={"/favourites"} className="hover:text-white transition" onClick={() => navigate()}>
                 Preferiti
               </Link>
             </li>
@@ -43,7 +44,7 @@ export default function Navbar() {
 
         {/* Logo */}
         <div className="flex md:justify-center w-full">
-          <Link to="/">
+          <Link to="/" onClick={() => navigate()}>
             <img
               src="src/assets/netfis_nobg.png"
               alt="Netfis logo"
@@ -92,22 +93,16 @@ export default function Navbar() {
 
       {/* Mobile menu overlay */}
       <div
-        className={`fixed inset-0 z-40 md:hidden pointer-events-none transition-opacity duration-300 ${
-          menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0"
+        className={`fixed inset-0 z-40 md:hidden transition-opacity duration-300 ${
+          menuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         }`}
         aria-hidden={!menuOpen}
       >
-        {/* Backdrop */}
-        {/* <div
-          onClick={() => setMenuOpen(false)}
-          className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ${
-            menuOpen ? "opacity-100" : "opacity-0"
-          }`}
-        /> */}
-
         {/* Slide-in panel */}
         <aside
-          className={`absolute top-0 right-0 w-64 bg-black/90 backdrop-blur-xl z-100 shadow-lg transform transition-transform duration-300 ${
+          className={`absolute top-0 right-0 w-64 bg-black/90 backdrop-blur-xl z-50 transform transition-transform duration-300 ${
             menuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -117,7 +112,7 @@ export default function Navbar() {
                 <li>
                   <Link
                     to={"/movies"}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={() => navigate()}
                     className="block py-2 px-1 text-lg"
                   >
                     Film
@@ -126,7 +121,7 @@ export default function Navbar() {
                 <li>
                   <Link
                     to={"/series"}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={() => navigate()}
                     className="block py-2 px-1 text-lg"
                   >
                     Serie Tv
@@ -135,7 +130,7 @@ export default function Navbar() {
                 <li>
                   <Link
                     to={"/favourites"}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={() => navigate()}
                     className="block py-2 px-1 text-lg"
                   >
                     Preferiti
@@ -157,7 +152,7 @@ export default function Navbar() {
               <div className="mt-6">
                 <Link
                   to="/login"
-                  onClick={() => setMenuOpen(false)}
+                  onClick={() => navigate()}
                   className="block w-full text-center py-2 border border-zinc-700 rounded text-sm"
                 >
                   Accedi

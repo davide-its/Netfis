@@ -48,7 +48,7 @@ export default function FirstMovieHero({ firstMovie, firstMovieImage, firstMovie
                         <h3 className="text-white text-md leading-relaxed drop-shadow-md">
                             {firstMovie?.overview}
                         </h3>
-                        <div className="flex gap-2 md:flex-row md:gap-4 my-10">
+                        <div className="flex flex-col gap-4 md:flex-row my-10">
                             <Button>
                                 <Play /> Guarda ora
                             </Button>
