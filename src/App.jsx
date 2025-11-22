@@ -5,10 +5,11 @@ import Search from "./pages/Search";
 import Errorpage from "./pages/ErrorPage";
 import Movies from "./pages/Movies";
 import Series from "./pages/Series";
+import { FavouritesProvider } from "./context/FavouritesContext";
 
 export default function App() {
   return (
-    <>
+    <FavouritesProvider>
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/movies" element={<Movies />} />
@@ -17,6 +18,6 @@ export default function App() {
         <Route path="/search" element={<Search />} />
         <Route path="*" element={<Errorpage />} />
       </Routes>
-    </>
+    </FavouritesProvider>
   );
 }

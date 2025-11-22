@@ -1,6 +1,7 @@
-import { Heart, Star } from "lucide-react";
-import Button from "./Button";
 import { createPortal } from "react-dom";
+import Button from "./Button";
+import FavouriteButton from "./FavouriteButton";
+import { Star } from "lucide-react";
 
 function Modal({ opera, operaImage, setIsOpen }) {
   if (!opera) return null;
@@ -24,7 +25,9 @@ function Modal({ opera, operaImage, setIsOpen }) {
         {/* Poster */}
         <div className="shrink-0 w-full md:w-1/3 h-64 md:h-auto rounded-2xl overflow-hidden mb-4 md:mb-0">
           <img
-            src={`https://image.tmdb.org/t/p/original${operaImage}`}
+            src={`https://image.tmdb.org/t/p/original${
+              opera.poster_path || operaImage
+            }`}
             title={opera.title || opera.original_name}
             className="w-full h-full object-cover object-top"
           />
@@ -37,12 +40,9 @@ function Modal({ opera, operaImage, setIsOpen }) {
             <h2 className="text-3xl font-bold mb-1">
               {opera.title || opera.original_name}
             </h2>
-
             {opera.tagline && (
               <p className="text-red-400 italic mb-2">“{opera.tagline}”</p>
             )}
-
-            {/* Info principali */}
             <p className="text-gray-400 text-xs mb-3 flex flex-wrap gap-2">
               <span>
                 {opera.release_date?.slice(0, 4) ||
@@ -66,8 +66,6 @@ function Modal({ opera, operaImage, setIsOpen }) {
                 {opera.vote_average?.toFixed(1)}
               </span>
             </p>
-
-            {/* Overview */}
             <p className="text-gray-300 leading-relaxed">
               {opera.overview ||
                 "Ops! Purtroppo non c'è ancora una descrizione disponibile..."}
@@ -83,15 +81,14 @@ function Modal({ opera, operaImage, setIsOpen }) {
             <Button type="x" onClick={() => setIsOpen(false)} />
           </div>
 
+          {/* Bottone preferiti */}
           <div className="m-auto pt-4">
-            <Button type="">
-              <Heart /> Aggiungi ai preferiti
-            </Button>
+            <FavouriteButton opera={opera} />
           </div>
         </div>
       </div>
     </div>,
-    document.body // portal target
+    document.body
   );
 }
 

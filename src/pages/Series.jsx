@@ -68,7 +68,7 @@ export default function Series() {
                     >
                       <Card
                         id={serie.id}
-                        type="serie" // <-- tipo corretto
+                        type="serie"
                         name={serie.name || serie.original_name}
                         image={serie.poster_path}
                       />
