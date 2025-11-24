@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Search, User, Menu } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Search, User } from "lucide-react";
 import { Link } from "react-router-dom";
+import Logo from "../assets/netfis_nobg.png";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -58,7 +59,7 @@ export default function Navbar() {
         <div className="flex md:justify-center w-full">
           <Link to="/" onClick={() => navigate()}>
             <img
-              src="src/assets/netfis_nobg.png"
+              src={Logo}
               alt="Netfis logo"
               className="w-full h-28 object-contain object-center"
             />
