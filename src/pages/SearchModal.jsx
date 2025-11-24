@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { useMedia } from "../context/MediaContext";
+import Loader from "../components/Loader";
 
 export default function SearchModal() {
   const [query, setQuery] = useState("");
@@ -48,7 +49,7 @@ export default function SearchModal() {
           </form>
         </div>
         {/* Loading */}
-        {loading && <p>Caricamento...</p>}
+        {loading && <Loader />}
         {/* Nessun risultato */}
         {!loading && results.length === 0 && hasSearched && (
           <p>Nessun risultato trovato.</p>
