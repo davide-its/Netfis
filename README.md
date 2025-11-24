@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="src/assets/netfis_nobg.png" style="width: 200px; height: 100px; object-fit: cover;" alt="Netfis Logo" />
+  <img src="src/assets/netfis_nobg.png" style="width: 200px; object-fit: cover;" alt="Netfis Logo" />
 </p>
 
 Netfis is an improved clone of Netflix, a project made for educational purpose by Dragos Nedelcu and Davide Martinelli, built using **ReactJS** and **TailwindCSS**, optimized for speed, modern UI, and a smooth user experience.  
