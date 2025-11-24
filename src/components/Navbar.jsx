@@ -151,9 +151,9 @@ export default function Navbar() {
 
             <div className="mt-4">
               <div className="flex flex-col gap-3 text-gray-300">
-                <a href="#" className="flex items-center gap-2 py-2">
+                <Link to={"/search"} className="flex items-center gap-2 py-2">
                   <Search size={16} /> Cerca
-                </a>
+                </Link>
                 <a href="#" className="flex items-center gap-2 py-2">
                   <User size={18} /> Account
                 </a>

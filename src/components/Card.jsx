@@ -1,10 +1,13 @@
 import { useState } from "react";
 import Modal from "./Modal";
 import { getMovieDetails, getSerieDetails } from "../services/api";
+import FallbackImage from "../assets/fallback_img.png";
 
 export default function Card({ id, image, name, type }) {
   const [isOpen, setIsOpen] = useState(false);
   const [opera, setOpera] = useState(null);
+
+ const imageUrl = image ? `https://image.tmdb.org/t/p/original/${image}` : FallbackImage;
 
   async function getDetails() {
     const details =
@@ -24,7 +27,7 @@ export default function Card({ id, image, name, type }) {
         }}
       >
         <img
-          src={`https://image.tmdb.org/t/p/original/${image}`}
+          src={imageUrl}
           alt={name}
           className="w-full h-full md:h-[400px] object-cover rounded-xl shadow-lg hover:shadow-lg group-hover:shadow-red-900 transition-shadow duration-300"
         />
