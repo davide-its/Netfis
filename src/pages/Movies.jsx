@@ -5,11 +5,12 @@ import { Navigation } from "swiper/modules";
 import Layout from "../Layouts/Layout";
 import Card from "../components/Card";
 import { useMedia } from "../context/MediaContext";
+import Loader from "../components/Loader";
 
 export default function Movies() {
   const { movies, genres = {}, loading } = useMedia();
 
-  if (loading) return <p className="text-white">Caricamento...</p>;
+  if (loading) return <Loader />;
 
   const genreIdToName = genres;
 

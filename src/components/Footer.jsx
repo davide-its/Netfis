@@ -4,7 +4,11 @@ export default function Footer() {
   return (
     <footer className="w-full bg-black/70 backdrop-blur-sm text-gray-400 mt-10 border-t border-zinc-800 text-center">
       <div className="container mx-auto px-4 pb-10">
-        <img src={Logo} alt="logo netfis" className="object-cover w-[250px] h-[200px] mx-auto"/>
+        <img
+          src={Logo}
+          alt="logo netfis"
+          className="object-cover w-[250px] h-[200px] mx-auto"
+        />
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 text-sm mb-8">
           <a href="#" className="hover:text-white transition">
             Centro assistenza
