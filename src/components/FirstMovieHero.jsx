@@ -6,6 +6,9 @@ import Modal from "./Modal";
 export default function FirstMovieHero({ firstMovie, firstMovieImage, firstMovieTrailer, firstMovieDetails }) {
 
     const [isOpen, setIsOpen] = useState(false);
+    if (!firstMovieTrailer) {
+        firstMovieTrailer = "GV3HUDMQ-F8";
+    }
 
     console.log("FirstMovieHero props:", { firstMovie, firstMovieImage, firstMovieTrailer, firstMovieDetails });
     return (

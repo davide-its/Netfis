@@ -65,7 +65,7 @@ export default function Details() {
         };
 
         fetchData();
-        
+
         const fetchSimilar = async () => {
             try {
                 const result = await similarOperaFunction(opera.genres, opera.title ? "film" : "tv");
@@ -77,6 +77,10 @@ export default function Details() {
 
         fetchSimilar();
     }, [opera]);
+
+    if (!video) {
+        setVideo("GV3HUDMQ-F8");
+    }
 
     // --- Loading state ---
     if (!details || !image || !video) {
