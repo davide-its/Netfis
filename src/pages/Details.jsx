@@ -84,13 +84,6 @@ export default function Details() {
     }, [opera]);
 
     // --- Loading state ---
-    if (!details || !image || !video) {
-        return (
-            <Layout>
-                <p>Loading...</p>
-            </Layout>
-        );
-    }
 
     return (
         <Layout>
@@ -134,7 +127,7 @@ export default function Details() {
                             <span >
                                 {details.genres.map((g) => g.name).join(", ")}
                             </span>
-                        )}
+                        )} {" "}
                         {opera.release_date?.slice(0, 4) ||
                             opera.first_air_date?.slice(0, 4)}
                     </div>
