@@ -5,6 +5,7 @@ import { useFavourites } from "../context/FavouritesContext";
 
 export default function Favourites() {
   const { favourites } = useFavourites();
+  console.log(favourites);
 
   if (favourites.length === 0)
     return (
@@ -37,6 +38,7 @@ export default function Favourites() {
                 type={item.seasons ? "serie" : "movie"}
                 image={item.poster_path}
               />
+              
             );
           })}
         </div>

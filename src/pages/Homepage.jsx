@@ -65,7 +65,8 @@ export default function Homepage() {
                         id={movie.id}
                         type={movie.title ? "movie" : "serie"}
                         name={movie.title || movie.original_name}
-                        image={movie.poster_path}
+                        image={movie.backdrop_path}
+                        backdrop={"max-h-42"}
                       />
                     </div>
                   </SwiperSlide>
