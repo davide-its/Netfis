@@ -57,50 +57,59 @@ export default function Movies() {
             sanno suscitare così tante emozioni. Un'ampia scelta di titoli per
             avventure infinite.
           </h3>
-          {sortedGenreEntries.map(([genreName, films]) => (
-            <div className="py-4" key={genreName}>
-              <h3 className="font-semibold text-2xl pb-2">{genreName}</h3>
-              {/* MOBILE */}
-              <div className="flex md:hidden gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
-                <Swiper
-                  modules={[Navigation]}
-                  spaceBetween={14}
-                  slidesPerView={Math.min(films.length, 1.5)}
-                >
-                  {films.map((movie) => (
-                    <SwiperSlide key={movie.id}>
-                      <Card
-                        id={movie.id}
-                        type="movie"
-                        name={movie.title}
-                        image={movie.poster_path}
-                      />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
+          <div className="container mx-auto px-3 py-10">
+            {sortedGenreEntries.map(([genreName, movies], index) => (
+              <div className="py-4" key={index}>
+                <h3 className="font-semibold text-3xl pb-5">{genreName}</h3>
+                {/* MOBILE */}
+                <div className="flex md:hidden gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
+                  <Swiper
+                    modules={[Navigation]}
+                    spaceBetween={14}
+                    slidesPerView={Math.min(movies.length, 1.5)}
+                  >
+                    {movies.map((movie) => (
+                      <SwiperSlide key={movie.id}>
+                        <div className="px-3">
+                          <Card
+                            id={movie.id}
+                            type={movie.title ? "movie" : "serie"}
+                            name={movie.title || movie.original_name}
+                            image={movie.poster_path}
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+                {/* DESKTOP */}
+                <div className="hidden md:block">
+                  <Swiper
+                    modules={[Navigation]}
+                    spaceBetween={20}
+                    slidesPerView={Math.min(movies.length, 4.5)}
+                    navigation
+                  >
+                    {movies.map((movie) => (
+                      <SwiperSlide key={movie.id}>
+                        <div className="p-3">
+                          <Card
+                            id={movie.id}
+                            type={movie.title ? "movie" : "serie"}
+                            name={movie.title || movie.original_name}
+                            image={movie.backdrop_path}
+                            backdrop={"max-h-42"}
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
               </div>
-              {/* DESKTOP */}
-              <div className="hidden md:block">
-                <Swiper
-                  modules={[Navigation]}
-                  spaceBetween={20}
-                  slidesPerView={Math.min(films.length, 4.5)}
-                  navigation
-                >
-                  {films.map((movie) => (
-                    <SwiperSlide key={`${genreName}-${movie.id}`}>
-                      <Card
-                        id={movie.id}
-                        type={"movie"}
-                        name={movie.title}
-                        image={movie.poster_path}
-                      />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
-            </div>
-          ))}
+            ))}
+
+
+          </div>
         </section>
       </div>
     </Layout>
