@@ -234,7 +234,7 @@ export default function Details() {
                     >
                         {similarOpera.map(item => (
                             <SwiperSlide key={item.id}>
-                                <Card key={item.id} id={item.id} name={item.name} image={item.poster_path} type={item.title ? "film" : "serie"} />
+                                <Card className={"aspect-9/16 w-full h-full"} key={item.id} id={item.id} name={item.name} image={item.poster_path} type={item.title ? "film" : "serie"} />
                             </SwiperSlide>
                         ))}
                     </Swiper>
