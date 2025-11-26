@@ -6,6 +6,7 @@ import {
   getMovieVideos,
   getMovieDetails,
   getMovieGenres,
+  getHomeContent,
 } from "../services/api";
 
 const MediaContext = createContext();
@@ -17,6 +18,7 @@ export function MediaProvider({ children }) {
   const [hero, setHero] = useState(null);
   const [loading, setLoading] = useState(true);
   const [genres, setGenres] = useState([]);
+  const [homeOpera, setHomeOpera] = useState([]);
 
   const fetchAll = async () => {
     try {
@@ -27,6 +29,10 @@ export function MediaProvider({ children }) {
       setMovies(moviesData);
       setSeries(seriesData);
       setGenres(genresData);
+
+      const homeOperaRaw = await getHomeContent();
+
+      setHomeOpera(homeOperaRaw);
 
       // Filtra solo i film che hanno una descrizione
       const moviesWithOverview = moviesData.filter(
@@ -87,6 +93,7 @@ export function MediaProvider({ children }) {
         genres,
         hero,
         loading,
+        homeOpera,
       }}
     >
       {children}

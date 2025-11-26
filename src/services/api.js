@@ -105,3 +105,103 @@ export async function similarOperaFunction(genres, type) {
   const data = await res.json();
   return data.results || [];
 }
+
+export async function getHomeContent() {
+  const combos = [
+    {
+      label: "Film d’azione con un pizzico di suspense",
+      type: "movie",
+      genres: [28, 53], // Azione + Thriller
+    },
+    {
+      label: "Commedie romantiche che scaldano il cuore",
+      type: "movie",
+      genres: [35, 10749], // Commedia + Romantico
+    },
+    {
+      label: "Thriller psicologici",
+      type: "movie",
+      genres: [53, 18], // Thriller + Dramma
+    },
+    {
+      label: "Serie di fantascienza e mistero",
+      type: "serie",
+      genres: [10765, 9648], // Sci-Fi + Mistery
+    },
+    {
+      label: "Drammi intensi e coinvolgenti",
+      type: "movie",
+      genres: [18], // Dramma
+    },
+    {
+      label: "Horror che ti tengono sveglio la notte",
+      type: "movie",
+      genres: [27, 53], // Horror + Thriller
+    },
+    {
+      label: "Avventure epiche e battaglie leggendarie",
+      type: "movie",
+      genres: [12, 28], // Fantasy/Avventura + Azione
+    },
+    {
+      label: "Commedie leggere per ridere senza pensieri",
+      type: "movie",
+      genres: [35], // Commedia
+    },
+    {
+      label: "Serie romantiche con colpi di scena",
+      type: "serie",
+      genres: [10749, 18], // Romantico + Dramma
+    },
+    {
+      label: "Documentari che aprono la mente",
+      type: "movie",
+      genres: [99], // Documentario
+    },
+    {
+      label: "Serie crime con misteri da risolvere",
+      type: "serie",
+      genres: [80, 9648], // Crime + Mistery
+    },
+    {
+      label: "Film d’animazione per grandi e piccini",
+      type: "movie",
+      genres: [16, 35], // Animazione + Commedia
+    },
+    {
+      label: "Drammi storici e coinvolgenti",
+      type: "movie",
+      genres: [18, 36], // Dramma + Storia
+    },
+    {
+      label: "Film di guerra con azione e tensione",
+      type: "movie",
+      genres: [10752, 28], // Guerra + Azione
+    }
+  ];
+
+  try {
+    const fetches = combos.map(combo => {
+      const genreString = combo.genres.join(",");
+      const endpoint =
+        combo.type === "movie" ? "discover/movie" : "discover/tv";
+
+      return fetch(
+        `${API_URL}/${endpoint}?with_genres=${genreString}&language=it-IT`,
+        options
+      )
+        .then(r => r.json())
+        .then(data => ({
+          label: combo.label,
+          type: combo.type,
+          items: data.results || []
+        }));
+    });
+
+    const results = await Promise.all(fetches);
+    return results;
+  } catch (error) {
+    console.error("Errore nel caricamento dei contenuti combinati:", error);
+    return [];
+  }
+}

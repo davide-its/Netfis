@@ -1,15 +1,22 @@
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
 import { useMedia } from "../context/MediaContext";
 import Card from "../components/Card";
 import Layout from "../Layouts/Layout";
 import FirstMovieHero from "../components/FirstMovieHero";
 import Loader from "../components/Loader";
+import { Navigation } from "swiper/modules";
+
+
 
 export default function Homepage() {
-  const { movies, series, hero, loading } = useMedia();
+  const { movies, series, hero, loading, homeOpera } = useMedia();
 
   if (loading) return <Loader />;
   if (!hero) return null;
 
+  console.log(homeOpera);
   return (
     <Layout>
       <FirstMovieHero
@@ -18,41 +25,57 @@ export default function Homepage() {
         trailer={hero.trailer}
         details={hero.details}
       />
-      <div className="container mx-auto ">
-        <section>
-          <h3 className="text-3xl font-bold mb-4 text-white">
-            Migliori film{" "}
-            <span className="text-red-500 font-bold"> trending</span>
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
-            {movies.map((movie) => (
-              <Card
-                key={movie.id}
-                id={movie.id}
-                name={movie.title}
-                image={movie.poster_path}
-                type={"movie"}
-              />
-            ))}
+      <div className="container mx-auto px-3 py-10">
+        {homeOpera.map((opera, index) => (
+          <div className="py-4" key={index}>
+            <h3 className="font-semibold text-3xl pb-5">{opera.label}</h3>
+            {/* MOBILE */}
+            <div className="flex md:hidden gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
+              <Swiper
+                modules={[Navigation]}
+                spaceBetween={14}
+                slidesPerView={Math.min(opera.items.length, 1.5)}
+              >
+                {opera.items.map((movie) => (
+                  <SwiperSlide key={movie.id}>
+                    <div className="px-3">
+                      <Card
+                        id={movie.id}
+                        type={movie.title ? "movie" : "serie"}
+                        name={movie.title || movie.original_name}
+                        image={movie.poster_path}
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+            {/* DESKTOP */}
+            <div className="hidden md:block">
+              <Swiper
+                modules={[Navigation]}
+                spaceBetween={20}
+                slidesPerView={Math.min(opera.items.length, 4.5)}
+                navigation
+              >
+                {opera.items.map((movie) => (
+                  <SwiperSlide key={movie.id}>
+                    <div className="p-3">
+                      <Card
+                        id={movie.id}
+                        type={movie.title ? "movie" : "serie"}
+                        name={movie.title || movie.original_name}
+                        image={movie.poster_path}
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
           </div>
-        </section>
-        <section>
-          <h3 className="text-3xl font-bold mb-4 text-white">
-            Migliori Serie TV{" "}
-            <span className="text-red-500 font-bold"> trending</span>
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-            {series.map((tv) => (
-              <Card
-                key={tv.id}
-                id={tv.id}
-                name={tv.name}
-                image={tv.poster_path}
-                type={"serie"}
-              />
-            ))}
-          </div>
-        </section>
+        ))}
+
+
       </div>
     </Layout>
   );

@@ -9,6 +9,7 @@ export default function Card({ id, image, name, type, className }) {
 
  const imageUrl = image ? `https://image.tmdb.org/t/p/original/${image}` : FallbackImage;
 
+ console.log(type);
   async function getDetails() {
     const details =
       type === "serie" ? await getSerieDetails(id) : await getMovieDetails(id);
