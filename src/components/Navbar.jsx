@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { Search, User } from "lucide-react";
 import { Link } from "react-router-dom";
-import Logo from "../assets/netfis_nobg.png";
-import { FavouritesProvider, useFavourites } from "../context/FavouritesContext";
+import { useFavourites } from "../context/FavouritesContext";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);

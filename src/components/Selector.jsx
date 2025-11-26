@@ -76,7 +76,7 @@ export default function Selector({ opera }) {
             const isTooLong = fullText.length > MAX_CHARS;
 
             return (
-              <div key={ep.id} className="flex gap-5 grid grid-cols-1 2xl:grid-cols-2 mb-6 p-5 rounded">
+              <div key={ep.id} className="gap-5 grid grid-cols-1 2xl:grid-cols-2 mb-6 p-5 rounded">
                 <img
                   src={
                     ep.still_path

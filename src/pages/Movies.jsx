@@ -107,8 +107,6 @@ export default function Movies() {
                 </div>
               </div>
             ))}
-
-
           </div>
         </section>
       </div>
