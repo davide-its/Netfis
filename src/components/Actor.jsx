@@ -2,8 +2,8 @@
   Actor Component
   ----------------
   Displays an actor's profile image, name, and the character they play.
-  If the actor doesn't have a profile picture, a fallback image (no-actor.jpg) is used.
 */
+import fallbackImg from "../assets/fallback_img.png"
 
 export default function Actor({ actor }) {
     return (
@@ -12,7 +12,7 @@ export default function Actor({ actor }) {
                 src={
                     actor.profile_path
                         ? `https://image.tmdb.org/t/p/w185${actor.profile_path}`
-                        : "/no-actor.jpg"
+                        : fallbackImg
                 }
                 className="w-40 h-40 rounded-3xl shadow-xl shadow-black object-cover mb-2"
             />
