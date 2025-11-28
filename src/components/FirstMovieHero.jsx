@@ -1,3 +1,13 @@
+/* 
+  FirstMovieHero Component
+  ------------------------
+  Displays a large hero section for the first highlighted movie on the homepage.
+  - Shows a background image, YouTube trailer (autoplay), title, and description.
+  - Provides two buttons: "Guarda ora" and "Altre informazioni".
+  - Opens a modal with movie details when requested.
+  - Includes fallback trailer and safe access to movie/description props.
+*/
+
 import { Play } from "lucide-react";
 import Button from "./Button";
 import { useState } from "react";
@@ -6,6 +16,7 @@ import Modal from "./Modal";
 export default function FirstMovieHero({ movie, image, trailer, details }) {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Fallback to a default trailer if none is provided
   const firstMovieTrailerSafe = trailer || "GV3HUDMQ-F8";
   const firstMovieDescription = details?.overview || movie?.overview;
 

@@ -1,3 +1,18 @@
+/* 
+  Card Component
+  ----------------
+  Displays a movie or TV series card with an image and title.
+  When clicked, it fetches detailed information (depending on whether it's a movie or a series)
+  and opens a modal showing additional data.
+  - Props:
+      id: TMDB ID of the media item
+      image: poster/backdrop path
+      name: title or name of the item
+      type: "movie" or "serie" (determines which API call to use)
+      className: optional custom styling
+      backdrop: extra classes for image styling
+*/
+
 import { useState } from "react";
 import Modal from "./Modal";
 import { getMovieDetails, getSerieDetails } from "../services/api";

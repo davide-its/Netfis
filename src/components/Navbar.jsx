@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Search, User } from "lucide-react";
+import { Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useFavourites } from "../context/FavouritesContext";
 

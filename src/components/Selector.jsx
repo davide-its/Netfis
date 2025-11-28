@@ -1,3 +1,15 @@
+/* 
+  Selector Component
+  ------------------
+  Displays a season selector and list of episodes for a TV series.
+  - Allows selecting a season from a dropdown if the series has multiple seasons.
+  - Fetches season details using the TMDB API.
+  - Shows episode thumbnails, titles, air dates, and descriptions.
+  - Truncates long episode descriptions with a "Read more" toggle.
+  - Props:
+      opera: object containing series details including number_of_seasons and id
+*/
+
 import { useEffect, useState } from "react";
 import { getSeasonDetails } from "../services/api";
 import fallbackImg from "../assets/fallback_img.png";
@@ -22,8 +34,7 @@ export default function Selector({ opera }) {
       [id]: !prev[id],
     }));
   }
-
-  // --- Fetch stagione ---
+  /* Fetch season details when selectedSeason or opera changes */
   useEffect(() => {
     if (opera.title) return;
 

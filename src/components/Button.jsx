@@ -1,3 +1,17 @@
+/* 
+  Button Component
+  ----------------
+  Reusable button element with multiple visual variants based on the "type" prop.
+  Supported types:
+    - default: primary red button
+    - "secondary": white/black alternative style
+    - "x": circular close button
+    - "details": navigational Link button used to open movie/TV details
+  For the "details" type, it automatically determines whether to link to /movie or /tv
+  based on the presence of a "title" in the operaProp object.
+*/
+
+
 import { Link } from "react-router";
 
 export default function Button({ type, className, children, onClick, operaProp, setIsOpen }) {

@@ -1,3 +1,10 @@
+/* 
+  Actor Component
+  ----------------
+  Displays an actor's profile image, name, and the character they play.
+  If the actor doesn't have a profile picture, a fallback image (no-actor.jpg) is used.
+*/
+
 export default function Actor({ actor }) {
     return (
         <div className="flex flex-col items-center text-white text-center">

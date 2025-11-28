@@ -1,3 +1,14 @@
+/* 
+  TecnicalInfoDetails Component
+  -----------------------------
+  Displays additional technical information about a movie or TV series.
+  - Shows tagline if available.
+  - Lists spoken languages.
+  - Lists production companies.
+  - Props:
+      details: object containing movie/series technical details (tagline, spoken_languages, production_companies)
+*/
+
 export default function TecnicalInfoDetails({ details }) {
     return (
         <>

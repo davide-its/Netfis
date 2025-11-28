@@ -1,3 +1,5 @@
+/* Footer component */
+
 export default function Footer() {
   return (
     <footer className="w-full bg-black/70 backdrop-blur-sm text-gray-400 mt-10 border-t border-zinc-800 text-center">

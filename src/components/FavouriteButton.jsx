@@ -1,3 +1,13 @@
+/* 
+  FavouriteButton Component
+  -------------------------
+  Allows users to add or remove a movie/series from their favourites list.
+  - Detects if the current item is already in favourites (syncs with context).
+  - Toggles favourite state on click.
+  - Plays a small scale animation when adding to favourites.
+  - Renders a styled button with a heart icon that changes color based on state.
+*/
+
 import { Heart } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useFavourites } from "../context/FavouritesContext";
@@ -24,14 +34,12 @@ export default function FavouriteButton({ opera, className }) {
   return (
     <button
       onClick={toggleFavourite}
-      className={`flex items-center cursor-pointer font-bold bg-red-800 py-3 px-5 rounded-2xl w-fit gap-3 shadow-[2px_2px_30px] shadow-red-800 hover:shadow-[0px_0px_20px] hover:shadow-red-600 hover:scale-105 transition-all ${isFavourite ? "bg-white text-black shadow-white/30" : "bg-red-700"} p-3 ${
-        animate ? "scale-105" : "scale-100"
-      } ${className}`}
+      className={`flex items-center cursor-pointer font-bold bg-red-800 py-3 px-5 rounded-2xl w-fit gap-3 shadow-[2px_2px_30px] shadow-red-800 hover:shadow-[0px_0px_20px] hover:shadow-red-600 hover:scale-105 transition-all ${isFavourite ? "bg-white text-black shadow-white/30" : "bg-red-700"} p-3 ${animate ? "scale-105" : "scale-100"
+        } ${className}`}
     >
       <Heart
-        className={`transition-colors duration-300  ${
-          isFavourite ? "text-red-500" : "text-white"
-        }`}
+        className={`transition-colors duration-300  ${isFavourite ? "text-red-500" : "text-white"
+          }`}
       />
       {isFavourite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
     </button>
