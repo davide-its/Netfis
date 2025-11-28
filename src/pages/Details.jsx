@@ -14,7 +14,7 @@ import {
 } from "../services/api";
 
 import Button from "../components/Button";
-import { Play } from "lucide-react";
+import { Play, Volume2, VolumeX } from "lucide-react";
 import Layout from "../Layouts/Layout";
 import FavouriteButton from "../components/FavouriteButton";
 
@@ -29,6 +29,7 @@ import TecnicalInfoDetails from "../components/TecnicalInfoDetails";
 import Actor from "../components/Actor";
 import Selector from "../components/Selector";
 import Loader from "../components/Loader";
+import YouTube from "react-youtube";
 
 export default function Details() {
   // React Router utilities
@@ -48,6 +49,32 @@ export default function Details() {
   const [mainImage, setMainImage] = useState(null);
   const [videoKey, setVideoKey] = useState(null);
   const [similarContent, setSimilarContent] = useState(null);
+
+
+  // -------------------------------------------
+  // YouTube trailer setup
+  // -------------------------------------------
+
+  const [muted, setMuted] = useState(true);
+  const [player, setPlayer] = useState(null);
+
+  const onReady = (event) => {
+    setPlayer(event.target);
+    event.target.mute();
+  };
+
+  const toggleMute = () => {
+    if (!player) return;
+    if (muted) {
+      player.unMute();
+      setMuted(false);
+    } else {
+      player.mute();
+      setMuted(true);
+    }
+  };
+
+
 
   // -------------------------------------------
   // Fetch main opera if not provided via state
@@ -178,13 +205,29 @@ export default function Details() {
         <div className="absolute bottom-0 right-0 w-full h-[55%] bg-linear-to-t from-[#181818] to-transparent z-10 opacity-0 lg:opacity-100"></div>
 
         {/* Trailer */}
-        <iframe
-          src={`https://www.youtube.com/embed/${videoKey}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoKey}`}
+        <YouTube
+          videoId={videoKey}
+          opts={{
+            width: "100%",
+            height: "100%",
+            playerVars: {
+              autoplay: 1,
+              controls: 0,
+              loop: 1,
+              playlist: videoKey,
+              rel: 0,
+            },
+          }}
+          onReady={onReady}
           className="lg:absolute top-0 left-0 w-screen h-full object-cover object-center opacity-0 lg:opacity-100"
-          allow="autoplay; encrypted-media;"
-          allowFullScreen
-          style={{ pointerEvents: "none" }}
         />
+
+        <Button
+          onClick={toggleMute}
+          className="hidden lg:flex absolute bottom-[10%] right-40 p-2 bg-black/70 rounded-full z-30 items-center justify-center hover:scale-110 transition-transform"
+        >
+          {muted ? <VolumeX className="w-6 h-6 text-white" /> : <Volume2 className="w-6 h-6 text-white" />}
+        </Button>
 
         {/* Details content */}
         <div className="relative z-20 max-w-2xl mb-40 md:mb-0">
