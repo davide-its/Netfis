@@ -24,7 +24,7 @@ export default function Navbar() {
      ${isActive ? "after:opacity-100" : "after:opacity-0"}`;
 
   const mobileNavLinkClass = ({ isActive }) =>
-    `block py-2 px-1 text-lg relative
+    `flex items-center gap-2 py-2 px-1 text-lg relative
      after:content-[''] after:absolute after:left-0 after:bottom-0
      after:h-[2px] after:w-full after:bg-red-600 after:rounded-full
      ${isActive ? "after:opacity-100" : "after:opacity-0"}`;
@@ -121,7 +121,7 @@ export default function Navbar() {
         inert={!menuOpen ? true : undefined}
       >
         <aside
-          className={`absolute top-0 right-0 w-64 bg-black/90 backdrop-blur-xl z-50 transform transition-transform duration-300 
+          className={`absolute rounded-2xl top-0 right-0 w-64 bg-black/90 shadow-2xl shadow-black z-50 transform transition-transform duration-300 
             ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
         >
           <div className="p-6 flex flex-col">
