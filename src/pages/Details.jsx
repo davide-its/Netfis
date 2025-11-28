@@ -48,6 +48,7 @@ export default function Details() {
   const [detailsData, setDetailsData] = useState(null);
   const [mainImage, setMainImage] = useState(null);
   const [videoKey, setVideoKey] = useState(null);
+  const [videoKeyTMP, setVideoKeyTMP] = useState(null);
   const [similarContent, setSimilarContent] = useState(null);
 
 
@@ -91,6 +92,9 @@ export default function Details() {
           }
 
           setOperaData(fetched);
+          setMuted(true);
+          
+
         }
       } catch (err) {
         console.error(err);
@@ -125,6 +129,8 @@ export default function Details() {
           imageResponse = await getSerieImages(operaData.id);
           videoResponse = await getSerieVideos(operaData.id);
         }
+
+
 
         if (!detailResponse) {
           navigate("/error");
@@ -172,7 +178,7 @@ export default function Details() {
   // -------------------------------------------------------
   useEffect(() => {
     if (!videoKey) {
-      setVideoKey("GV3HUDMQ-F8");
+      setVideoKeyTMP("GV3HUDMQ-F8");
     }
   }, [videoKey, operaData]);
 
@@ -206,7 +212,8 @@ export default function Details() {
 
         {/* Trailer */}
         <YouTube
-          videoId={videoKey}
+        key={videoKey || videoKeyTMP}
+          videoId={videoKey || videoKeyTMP}
           opts={{
             width: "100%",
             height: "100%",
@@ -214,7 +221,7 @@ export default function Details() {
               autoplay: 1,
               controls: 0,
               loop: 1,
-              playlist: videoKey,
+              playlist: videoKey || videoKeyTMP,
               rel: 0,
             },
           }}
@@ -261,7 +268,7 @@ export default function Details() {
           </h3>
 
           <div className="flex flex-col gap-4 sm:flex-row my-10">
-            <Button className="w-full sm:w-auto justify-center sm:justify-self-auto" trailer={videoKey} type="guarda">
+            <Button className="w-full sm:w-auto justify-center sm:justify-self-auto" trailer={videoKey || videoKeyTMP} type="guarda">
               <Play /> Guarda ora
             </Button>
 
