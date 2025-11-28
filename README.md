@@ -18,6 +18,12 @@ The project focuses on clean architecture, performance, and high-quality UX.
 
 ---
 
+## 💻 Try it now!
+
+Try our web application through this [link](https://netfis.onrender.com)
+
+**You will need to wait 50-70 seconds to use the link!**
+
 ## 🚀 Technologies Used
 
 | Technology    | Version | Why it was chosen                      |
@@ -139,20 +145,18 @@ npm run dev
 
 ## 📦 External Libraries Justification
 
-| Libreria      | Problema risolto                                     | Perché necessaria (vs React puro)                            | Come integrata nel progetto                                      |
+| Library       | Problem Solved                                        | Why Necessary (vs Pure React)                               | How Integrated in the Project                                     |
 | ------------- | ---------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------- |
-| TailwindCSS   | Velocizza la creazione di UI responsive e moderne    | Evita scrivere CSS personalizzato complesso e boilerplate    | Classi utility direttamente negli JSX dei componenti             |
-| Swiper        | Implementazione di slider/carousel Netflix-like      | React puro richiederebbe molto JS e logica per gestire swipe | Componente `<Swiper>` per carousels di film e serie              |
-| Lucide-react  | Icone moderne e leggere                              | React puro non ha libreria icone integrata                   | Icone importate e usate nei pulsanti, navbar e card              |
-| React Router  | Routing dinamico per SPA con parametri e navigazione | React puro richiede gestione manuale di URL e history        | `<BrowserRouter>`, `<Routes>` e `<Route>` nelle pagine           |
-| React YouTube | Embedding di video YouTube con API React             | React puro richiederebbe iframe manuali e gestione eventi    | Componente `<YouTube>` per trailer e video nelle pagine dettagli |
+| TailwindCSS   | Speeds up creation of modern, responsive UI          | Avoids writing complex custom CSS and boilerplate            | Utility classes used directly in JSX components                  |
+| Swiper        | Implementation of Netflix-like sliders/carousels    | Pure React would require a lot of JS and logic for swiping   | `<Swiper>` component for movie and series carousels              |
+| Lucide-react  | Lightweight, modern icons                             | Pure React does not have a built-in icon library             | Icons imported and used in buttons, navbar, and cards            |
+| React Router  | Dynamic SPA routing with parameters and navigation  | Pure React would require manual URL and history management   | `<BrowserRouter>`, `<Routes>`, and `<Route>` used in pages       |
+| React YouTube | Embedding YouTube videos with React API              | Pure React would require manual iframes and event handling  | `<YouTube>` component for trailers and videos in detail pages    |
 
----
 
 ## ⚠️ Known Issues / Limitations
 
-- Missing trailers for some titles
-- Missing backdrops (fallbacks used)
+- Missing data for a few films and tv series (trailers, images, overviews, rating etc...)
 - API rate limits
 - Favorites stored locally only
 - No authentication
