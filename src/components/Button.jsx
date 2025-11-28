@@ -22,7 +22,14 @@ export default function Button({ type, className, children, onClick, operaProp, 
             )}
 
             {type === "details" && (
-                <Link to={"/details"} state={{ opera: operaProp }} onClick={() => { setIsOpen(false), window.scrollTo(0, 0) }} className={`flex items-center cursor-pointer text-white font-bold bg-transparent border-2 border-white py-3 px-5 rounded-2xl w-fit gap-3 shadow-lg shadow-gray-700 hover:shadow-[0px_0px_30px] hover:shadow-gray-400 hover:scale-105 transition-all ${className}`}>{children}</Link>
+                <Link
+                    to={`${operaProp?.title ? '/movie' : '/tv'}/${operaProp?.id}`}
+                    state={{ opera: operaProp }}
+                    onClick={() => { setIsOpen(false); window.scrollTo(0, 0); }}
+                    className={`flex items-center cursor-pointer text-white font-bold bg-transparent border-2 border-white py-3 px-5 rounded-2xl w-fit gap-3 shadow-lg shadow-gray-700 hover:shadow-[0px_0px_30px] hover:shadow-gray-400 hover:scale-105 transition-all ${className}`}
+                >
+                    {children}
+                </Link>
             )}
         </>
     );

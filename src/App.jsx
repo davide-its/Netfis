@@ -1,4 +1,4 @@
-import {Route, Routes } from "react-router";
+import { Route, Routes } from "react-router";
 import Homepage from "./pages/Homepage";
 import Favourites from "./pages/Favourites";
 import Search from "./pages/SearchModal";
@@ -17,7 +17,8 @@ export default function App() {
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/series" element={<Series />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/details" element={<Details />} />
+        <Route path="/movie/:id" element={<Details />} />
+        <Route path="/tv/:id" element={<Details />} />
         <Route path="*" element={<Errorpage />} />
       </Routes>
     </FavouritesProvider>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation, useParams } from "react-router";
 import {
+  fetchOperaById,
   getMovieDetails,
   getMovieImages,
   getMovieVideos,
@@ -10,7 +11,6 @@ import {
   similarOperaFunction,
 } from "../services/api";
 import Button from "../components/Button";
-import Modal from "../components/Modal";
 import { Play } from "lucide-react";
 import Layout from "../Layouts/Layout";
 import FavouriteButton from "../components/FavouriteButton";
@@ -28,61 +28,78 @@ import Loader from "../components/Loader";
 
 export default function Details() {
   const location = useLocation();
-  const { opera } = location.state || {};
+  let { operaRaw } = location.state || {};
+
+  const { id } = useParams();
+  const type = location.pathname.includes("/movie") ? "movie" : "tv";
+
 
   const [details, setDetails] = useState(null);
+  const [opera, setOpera] = useState(operaRaw || null);
   const [video, setVideo] = useState(null);
   const [image, setImage] = useState(null);
   const [similarOpera, setSimilarOpera] = useState(null);
 
   // --- Fetch dettagli principali ---
   useEffect(() => {
-    if (!opera) return;
-
-    const fetchData = async () => {
-      try {
-        let detailsData, imagesData, videosData;
-
-        if (opera.title) {
-          detailsData = await getMovieDetails(opera.id);
-          imagesData = await getMovieImages(opera.id);
-          videosData = await getMovieVideos(opera.id);
-        } else {
-          detailsData = await getSerieDetails(opera.id);
-          imagesData = await getSerieImages(opera.id);
-          videosData = await getSerieVideos(opera.id);
+    const ensureOpera = async () => {
+      if (!opera) {
+        try {
+          const data = await fetchOperaById(id, type);
+          setOpera(data);
+        } catch (err) {
+          console.error("Errore fetch opera by id:", err);
         }
-
-        setDetails(detailsData);
-        setImage(imagesData.backdrops?.[0]?.file_path || null);
-
-        const trailerRaw =
-          videosData.results.find(
-            (v) => v.type === "Trailer" && v.site === "YouTube"
-          ) || videosData.results.find((v) => v.site === "YouTube");
-
-        setVideo(trailerRaw?.key || "");
-      } catch (err) {
-        console.error("Errore fetch details:", err);
       }
-    };
+    }
 
-    fetchData();
+    ensureOpera().then(() => {
 
-    const fetchSimilar = async () => {
-      try {
-        const result = await similarOperaFunction(
-          opera.genres,
-          opera.title ? "film" : "tv"
-        );
-        setSimilarOpera(result);
-      } catch (err) {
-        console.error("Errore fetch similar opera:", err);
-      }
-    };
+      const fetchData = async () => {
+        try {
+          let detailsData, imagesData, videosData;
 
-    fetchSimilar();
-  }, [opera]);
+          if (!opera.title) {
+            detailsData = await getSerieDetails(opera.id);
+            imagesData = await getSerieImages(opera.id);
+            videosData = await getSerieVideos(opera.id);
+          } else {
+            detailsData = await getMovieDetails(opera.id);
+            imagesData = await getMovieImages(opera.id);
+            videosData = await getMovieVideos(opera.id);
+          }
+
+          setDetails(detailsData);
+          setImage(imagesData.backdrops?.[0]?.file_path || null);
+
+          const trailerRaw =
+            videosData.results.find(
+              (v) => v.type === "Trailer" && v.site === "YouTube"
+            ) || videosData.results.find((v) => v.site === "YouTube");
+
+          setVideo(trailerRaw?.key || "");
+        } catch (err) {
+          console.error("Errore fetch details:", err);
+        }
+      };
+
+      fetchData();
+
+      const fetchSimilar = async () => {
+        try {
+          const result = await similarOperaFunction(
+            opera.genres,
+            opera.title ? "film" : "tv"
+          );
+          setSimilarOpera(result);
+        } catch (err) {
+          console.error("Errore fetch similar opera:", err);
+        }
+      };
+
+      fetchSimilar();
+    });
+  }, [opera, id]);
 
   useEffect(() => {
     if (!video) {
@@ -134,8 +151,8 @@ export default function Details() {
             {opera.runtime
               ? `${opera.runtime} min`
               : opera.number_of_seasons
-              ? `${opera.number_of_seasons} stagioni`
-              : "N/A"}
+                ? `${opera.number_of_seasons} stagioni`
+                : "N/A"}
             {details.genres?.length > 0 && (
               <span>{details.genres.map((g) => g.name).join(", ")}</span>
             )}

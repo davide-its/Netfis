@@ -205,3 +205,22 @@ export async function getHomeContent() {
     return [];
   }
 }
+
+export async function fetchOperaById(id, type) {
+  try {
+    const res = await fetch(
+      `${API_URL}/${type}/${id}&language=it-IT`,
+      options
+    );
+
+    if (!res.ok) {
+      throw new Error("Errore nel recupero dei dati");
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error("Errore fetchOperaById:", err);
+    return null;
+  }
+};
