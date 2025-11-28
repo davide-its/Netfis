@@ -41,7 +41,7 @@ export default function Navbar() {
             </li>
 
             <li>
-              <NavLink to="/series" onClick={navigate} className={navLinkClass}>
+              <NavLink to="/tv" onClick={navigate} className={navLinkClass}>
                 Serie Tv
               </NavLink>
             </li>
@@ -139,7 +139,7 @@ export default function Navbar() {
 
                 <li>
                   <NavLink
-                    to="/series"
+                    to="/tv"
                     onClick={navigate}
                     className={mobileNavLinkClass}
                   >
