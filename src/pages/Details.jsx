@@ -218,7 +218,7 @@ export default function Details() {
           </h3>
 
           <div className="flex flex-col gap-4 sm:flex-row my-10">
-            <Button className="w-full sm:w-auto justify-center sm:justify-self-auto">
+            <Button className="w-full sm:w-auto justify-center sm:justify-self-auto" trailer={videoKey} type="guarda">
               <Play /> Guarda ora
             </Button>
 

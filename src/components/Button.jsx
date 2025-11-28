@@ -14,13 +14,19 @@
 
 import { Link } from "react-router";
 
-export default function Button({ type, className, children, onClick, operaProp, setIsOpen }) {
+export default function Button({ type, className, children, onClick, operaProp, setIsOpen, trailer }) {
     return (
         <>
             {!type && (
                 <button onClick={onClick} className={`flex items-center cursor-pointer text-white font-bold bg-red-800 py-3 px-5 rounded-2xl w-fit gap-3 shadow-[2px_2px_50px] shadow-red-800 hover:shadow-[0px_0px_30px] hover:shadow-red-600 hover:scale-105 transition-all ${className} `}>
                     {children}
                 </button>
+            )}
+
+            {type == "guarda" && (
+                <Link target="_blank" to={`https://www.youtube.com/watch?v=${trailer}`} onClick={onClick} className={`flex items-center cursor-pointer text-white font-bold bg-red-800 py-3 px-5 rounded-2xl w-fit gap-3 shadow-[2px_2px_50px] shadow-red-800 hover:shadow-[0px_0px_30px] hover:shadow-red-600 hover:scale-105 transition-all ${className} `}>
+                        {children}
+                </Link>
             )}
 
             {type == "secondary" && (

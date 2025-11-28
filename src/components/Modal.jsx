@@ -17,6 +17,7 @@ import FavouriteButton from "./FavouriteButton";
 import { Star } from "lucide-react";
 import "swiper/css";
 import "swiper/css/navigation";
+import noPoster from "../assets/fallback_img.png";
 
 /* Modal component */
 function Modal({ opera, operaImage, setIsOpen }) {
@@ -41,8 +42,8 @@ function Modal({ opera, operaImage, setIsOpen }) {
 
           <div className="shrink-0 w-full md:w-1/3 h-64 md:h-auto rounded-2xl overflow-hidden mb-4 md:mb-0">
             <img
-              src={`https://image.tmdb.org/t/p/original${opera.poster_path || operaImage
-                }`}
+              src={opera.poster_path ? (`https://image.tmdb.org/t/p/original${opera.poster_path || operaImage
+                }`) : noPoster}
               title={opera.title || opera.original_name}
               className="w-full h-full object-cover object-top"
             />

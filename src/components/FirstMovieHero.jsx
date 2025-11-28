@@ -22,7 +22,6 @@ export default function FirstMovieHero({ movie, image, trailer, details }) {
 
   if (!movie || !image || !firstMovieDescription) return null;
 
-
   return (
     <>
       {isOpen && (
@@ -56,7 +55,7 @@ export default function FirstMovieHero({ movie, image, trailer, details }) {
             {firstMovieDescription}
           </h3>
           <div className="flex flex-col gap-4 md:flex-row my-10">
-            <Button className={"w-full md:w-auto justify-center md:justify-self-auto"}>
+            <Button className={"w-full md:w-auto justify-center md:justify-self-auto"} trailer={firstMovieTrailerSafe} type="guarda">
               <Play /> Guarda ora
             </Button>
             <Button type="secondary" onClick={() => setIsOpen(true)} className={"w-full md:w-auto justify-center md:justify-self-auto"}>
